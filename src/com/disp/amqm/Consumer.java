@@ -47,7 +47,7 @@ public class Consumer implements Runnable, ExceptionListener {
 
             consumer.close();
             session.close();
-//            connection.close();
+            connection.close();
         } catch (Exception e) {
             System.out.println("Caught: " + e);
             e.printStackTrace();
