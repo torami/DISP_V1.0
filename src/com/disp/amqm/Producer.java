@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
+import org.apache.camel.Processor;import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.util.jndi.JndiContext;
@@ -21,11 +21,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-
-
-
-
-
+import com.disp.messageprocessing.Email;
 import com.disp.messageprocessing.JmsMessageSender;
 
 public class Producer implements Runnable {
@@ -66,6 +62,9 @@ public class Producer implements Runnable {
 							System.out.println("Process signalement " + signalement);
 							 // send to default destination 
 						    jmsMessageSender.send(signalement); 
+						    // Send an email to the administration
+						    Email mail = new Email();
+						    mail.SendMyEmail("reporter.bergerlevrault@gmail.com","Snoopy12","rami.torkhani@gmail.com", signalement.getClass().getName());
 						    // close spring application context
 						    ((ClassPathXmlApplicationContext)ctx).close();
 						}

@@ -14,6 +14,15 @@
 			</setBody>
 			<to uri="stream:out" />
 		</route>
+		<route>
+			<from uri="queuemanager:queue:Signalement" />
+			<log message="Routing message from inbox to outbox with data ${body}" />
+			<setHeader headerName="Subject">
+				<constant> New Reporting added</constant>
+			</setHeader>
+			<to
+				uri="smtps://smtp.gmail.com?port=587&amp;username=rami.torkhani@gmail.com&amp;password=Pa$$w0rd12&amp;to=Rami.Torkhani@univ-lyon2.fr" />
+		</route>
 	</camelContext>
 
 </beans>
